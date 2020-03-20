@@ -1,6 +1,8 @@
 package com.cubic.services;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -47,6 +49,41 @@ public class StudentService {
 		studentEntity.setUuid(UUID.randomUUID().toString());
 
 		studentRepository.save(studentEntity);
+	}
+
+	public List<StudentDto> getAllStudents() {
+
+		Iterable<StudentEntity> studentEntity = studentRepository.findAll();
+
+		List<StudentDto> studentDto = new ArrayList<StudentDto>();
+
+		for (StudentEntity student : studentEntity) {
+			StudentDto studentDto1 = new StudentDto();
+			studentDto1.setId(student.getId());
+			studentDto1.setFirstName(student.getFirstName());
+			studentDto1.setLastName(student.getLastName());
+			studentDto1.setEmail(student.getEmail());
+			studentDto1.setPhone(student.getPhone());
+
+			studentDto.add(studentDto1);
+
+		}
+		return studentDto;
+
+	}
+
+	public void updateStudents(int id, StudentDto studentDto) {
+		Optional<StudentEntity> studentEntity = studentRepository.findById(id);
+
+		if (studentEntity.isPresent()) {
+			StudentEntity studentEntity2 = studentEntity.get();
+			studentEntity2.setFirstName(studentDto.getFirstName());
+			studentEntity2.setLastName(studentDto.getLastName());
+			studentEntity2.setEmail(studentDto.getEmail());
+			studentEntity2.setPhone(studentDto.getPhone());
+
+			studentRepository.save(studentEntity2);
+		}
 	}
 
 }
