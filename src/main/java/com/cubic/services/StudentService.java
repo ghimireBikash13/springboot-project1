@@ -86,4 +86,22 @@ public class StudentService {
 		}
 	}
 
+	public StudentDto findStudentByEmail(String emailAddress) {
+
+		Optional<StudentEntity> studentEntity = studentRepository.findByEmail(emailAddress);
+
+		StudentDto studentDto = null;
+		if (studentEntity.isPresent()) {
+			studentDto = new StudentDto();
+			studentDto.setId(studentEntity.get().getId());
+			studentDto.setFirstName(studentEntity.get().getFirstName());
+			studentDto.setLastName(studentEntity.get().getLastName());
+			studentDto.setPhone(studentEntity.get().getPhone());
+			studentDto.setEmail(studentEntity.get().getEmail());
+
+		}
+		return studentDto;
+
+	}
+
 }

@@ -28,6 +28,12 @@ public class StudentController {
 
 	}
 
+	@GetMapping("/email/{email}")
+	public StudentDto getStudentByEmail(@PathVariable("email") String emailAddress) {
+		return studentService.findStudentByEmail(emailAddress);
+
+	}
+
 	@PostMapping(value = "")
 	public void addStudentInfo(@RequestBody StudentDto dtos) {
 		studentService.addStudents(dtos);

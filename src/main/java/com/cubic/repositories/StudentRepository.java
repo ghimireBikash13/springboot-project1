@@ -9,5 +9,6 @@ import com.cubic.entities.StudentEntity;
 @Repository
 public interface StudentRepository extends CrudRepository<StudentEntity, Integer> {
 	StudentEntity save(Optional<StudentEntity>studentEntity);
+	Optional<StudentEntity> findByEmail(String emailAddress);
 	
 }
